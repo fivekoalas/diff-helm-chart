@@ -1,0 +1,38 @@
+name: 'Diff Helm Chart'
+description: 'A Github action diff helm charts'
+author: 'fivekoalas'
+
+branding:
+  icon: cloud
+  color: orange
+
+inputs:
+  targetChartPath:
+    description: 'The path to the chart to be compared'
+    required: true
+  currentChartPath:
+    description: 'The path to the chart to be compared'
+    required: true
+  valuesPath:
+    description: 'The path to the file containing the values'
+    required: false
+    default: 'values-dev.yaml'
+  targetValuesRepo:
+    description: 'The repository containing the target values'
+    required: true
+  token:
+    description: 'The Github token'
+    default: '${{ github.token }}'
+    required: false
+  targetBranchRegex:
+    description: 'The regex to match the target branch on pull requests body'
+    default: 'target: ([a-zA-Z0-9-]+(/[a-zA-Z0-9-]+)?)'
+    required: false
+  asMarkdown:
+    description: 'Whether to format the output as markdown'
+    default: 'true'
+    required: false
+
+runs:
+  using: 'node16'
+  main: 'dist/index.js'
