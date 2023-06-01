@@ -28,10 +28,6 @@ export const action = async (
   ]
   await exec('helm', currentArgs)
 
-  output.startGroup('Current')
-  output.info(currentArgs.join(' '))
-  output.endGroup()
-
   const targetArgs = [
     'template',
     targetChartPath,
@@ -40,10 +36,6 @@ export const action = async (
     '--output-dir',
     './diff/target'
   ]
-
-  output.startGroup('Target')
-  output.info(targetArgs.join(' '))
-  output.endGroup()
 
   await exec('helm', targetArgs)
 
@@ -61,9 +53,5 @@ export const action = async (
     return
   }
 
-  output.info('Changes detected')
   output.setDiff(result.stdout)
-  output.startGroup('Diff')
-  output.info(result.stdout)
-  output.endGroup()
 }

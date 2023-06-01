@@ -24,9 +24,6 @@ const action = async ({ currentChartPath, currentValuesOptions, targetChartPath,
         './diff/current'
     ];
     await (0, exec_1.exec)('helm', currentArgs);
-    output.startGroup('Current');
-    output.info(currentArgs.join(' '));
-    output.endGroup();
     const targetArgs = [
         'template',
         targetChartPath,
@@ -35,9 +32,6 @@ const action = async ({ currentChartPath, currentValuesOptions, targetChartPath,
         '--output-dir',
         './diff/target'
     ];
-    output.startGroup('Target');
-    output.info(targetArgs.join(' '));
-    output.endGroup();
     await (0, exec_1.exec)('helm', targetArgs);
     const result = await (0, exec_1.getExecOutput)('diff', ['--unified', '--recursive', './diff/current', './diff/target'], {
         ignoreReturnCode: true
@@ -47,11 +41,7 @@ const action = async ({ currentChartPath, currentValuesOptions, targetChartPath,
         output.info('No changes detected');
         return;
     }
-    output.info('Changes detected');
     output.setDiff(result.stdout);
-    output.startGroup('Diff');
-    output.info(result.stdout);
-    output.endGroup();
 };
 exports.action = action;
 
@@ -153,15 +143,12 @@ exports.Output = Output;
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.downloadRepoFile = void 0;
-const core_1 = __nccwpck_require__(2186);
 const promises_1 = __nccwpck_require__(3977);
 async function downloadRepoFile(octokit, { outputPath, ...options }) {
-    (0, core_1.debug)(`Downloading ${options.owner}/${options.repo}@${options.ref}:${options.path}`);
     const content = await octokit.rest.repos.getContent({
         ...options,
         mediaType: { format: 'raw' }
     });
-    (0, core_1.debug)(`Writing ${outputPath}`);
     await (0, promises_1.writeFile)(outputPath, content.data);
     return outputPath;
 }
@@ -170,7 +157,7 @@ exports.downloadRepoFile = downloadRepoFile;
 
 /***/ }),
 
-/***/ 7351:
+/***/ 5241:
 /***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
 
 "use strict";
@@ -304,7 +291,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.getIDToken = exports.getState = exports.saveState = exports.group = exports.endGroup = exports.startGroup = exports.info = exports.notice = exports.warning = exports.error = exports.debug = exports.isDebug = exports.setFailed = exports.setCommandEcho = exports.setOutput = exports.getBooleanInput = exports.getMultilineInput = exports.getInput = exports.addPath = exports.setSecret = exports.exportVariable = exports.ExitCode = void 0;
-const command_1 = __nccwpck_require__(7351);
+const command_1 = __nccwpck_require__(5241);
 const file_command_1 = __nccwpck_require__(717);
 const utils_1 = __nccwpck_require__(5278);
 const os = __importStar(__nccwpck_require__(2037));
@@ -1312,7 +1299,7 @@ const os = __importStar(__nccwpck_require__(2037));
 const events = __importStar(__nccwpck_require__(2361));
 const child = __importStar(__nccwpck_require__(2081));
 const path = __importStar(__nccwpck_require__(1017));
-const io = __importStar(__nccwpck_require__(7436));
+const io = __importStar(__nccwpck_require__(7351));
 const ioUtil = __importStar(__nccwpck_require__(1962));
 const timers_1 = __nccwpck_require__(9512);
 /* eslint-disable @typescript-eslint/unbound-method */
@@ -3072,7 +3059,7 @@ exports.getCmdPath = getCmdPath;
 
 /***/ }),
 
-/***/ 7436:
+/***/ 7351:
 /***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
 
 "use strict";
