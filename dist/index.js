@@ -78,12 +78,10 @@ class Input {
         const [owner, repo] = ownerWithRepo.split('/');
         const path = (0, core_1.getInput)('valuesPath');
         let ref = 'develop';
-        (0, core_1.debug)(`Event name: ${github_1.context.eventName}`);
-        (0, core_1.debug)(`Event payload: ${JSON.stringify(github_1.context.payload)}`);
         if (github_1.context.eventName === 'pull_request') {
             const regex = new RegExp((0, core_1.getInput)('targetBranchRegex'));
-            const payload = github_1.context.payload;
-            const body = payload.body ?? '';
+            const payload = github_1.context.payload.pull_request;
+            const body = payload?.body ?? '';
             const match = regex.exec(body);
             if (match) {
                 ref = match[1];

@@ -1,6 +1,5 @@
-import {getInput, debug} from '@actions/core'
+import {getInput} from '@actions/core'
 import {context} from '@actions/github'
-import type {PullRequest} from '@octokit/webhooks-definitions/schema'
 
 export class Input {
   get token(): string {
@@ -17,13 +16,10 @@ export class Input {
     const path = getInput('valuesPath')
     let ref = 'develop'
 
-    debug(`Event name: ${context.eventName}`)
-    debug(`Event payload: ${JSON.stringify(context.payload)}`)
-
     if (context.eventName === 'pull_request') {
       const regex = new RegExp(getInput('targetBranchRegex'))
-      const payload = context.payload as PullRequest
-      const body = payload.body ?? ''
+      const payload = context.payload.pull_request
+      const body = payload?.body ?? ''
       const match = regex.exec(body)
       if (match) {
         ref = match[1]
