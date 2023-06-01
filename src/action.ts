@@ -18,22 +18,34 @@ export const action = async (
   const currentValues = await downloadRepoFile(octokit, currentValuesOptions)
   const targetValues = await downloadRepoFile(octokit, targetValuesOptions)
 
-  await exec('helm', [
+  const currentArgs = [
     'template',
     currentChartPath,
     '--values',
     currentValues,
     '--output-dir',
     './diff/current'
-  ])
-  await exec('helm', [
+  ]
+  await exec('helm', currentArgs)
+
+  output.startGroup('Current')
+  output.info(currentArgs.join(' '))
+  output.endGroup()
+
+  const targetArgs = [
     'template',
     targetChartPath,
     '--values',
     targetValues,
     '--output-dir',
     './diff/target'
-  ])
+  ]
+
+  output.startGroup('Target')
+  output.info(targetArgs.join(' '))
+  output.endGroup()
+
+  await exec('helm', targetArgs)
 
   const result = await getExecOutput('diff', [
     '--unified',
