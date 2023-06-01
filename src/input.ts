@@ -11,7 +11,9 @@ export class Input {
     'path' | 'ref' | 'owner' | 'repo' | 'outputPath',
     string
   > {
-    const [owner, repo] = getInput('targetValuesRepo').split('/')
+    const ownerWithRepo =
+      getInput('targetValuesRepo') || getInput('currentValuesRepo')
+    const [owner, repo] = ownerWithRepo.split('/')
     const path = getInput('valuesPath')
     let ref = 'develop'
 
@@ -32,9 +34,11 @@ export class Input {
     'path' | 'ref' | 'owner' | 'repo' | 'outputPath',
     string
   > {
+    const [owner, repo] = getInput('currentValuesRepo').split('/')
     return {
-      ...context.repo,
-      ref: context.ref.replace('refs/heads/', ''),
+      owner,
+      repo,
+      ref: getInput('currentValuesBranch'),
       path: getInput('valuesPath'),
       outputPath: 'values-current.yaml'
     }

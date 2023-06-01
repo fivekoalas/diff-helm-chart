@@ -19,7 +19,14 @@ inputs:
     default: 'values-dev.yaml'
   targetValuesRepo:
     description: 'The repository containing the target values'
+    required: false
+  currentValuesRepo:
+    description: 'The repository containing the current values'
     required: true
+  currentValuesBranch:
+    description: 'The branch containing the current values'
+    required: false
+    default: 'develop'
   token:
     description: 'The Github token'
     default: '${{ github.token }}'

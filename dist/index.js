@@ -74,7 +74,8 @@ class Input {
         return (0, core_1.getInput)('token');
     }
     get targetValuesOptions() {
-        const [owner, repo] = (0, core_1.getInput)('targetValuesRepo').split('/');
+        const ownerWithRepo = (0, core_1.getInput)('targetValuesRepo') || (0, core_1.getInput)('currentValuesRepo');
+        const [owner, repo] = ownerWithRepo.split('/');
         const path = (0, core_1.getInput)('valuesPath');
         let ref = 'develop';
         if (github_1.context.eventName === 'pull_request') {
@@ -89,9 +90,11 @@ class Input {
         return { path, ref, owner, repo, outputPath: 'values-target.yaml' };
     }
     get currentValuesOptions() {
+        const [owner, repo] = (0, core_1.getInput)('currentValuesRepo').split('/');
         return {
-            ...github_1.context.repo,
-            ref: github_1.context.ref.replace('refs/heads/', ''),
+            owner,
+            repo,
+            ref: (0, core_1.getInput)('currentValuesBranch'),
             path: (0, core_1.getInput)('valuesPath'),
             outputPath: 'values-current.yaml'
         };
