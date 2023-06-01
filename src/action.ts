@@ -47,12 +47,13 @@ export const action = async (
 
   await exec('helm', targetArgs)
 
-  const result = await getExecOutput('diff', [
-    '--unified',
-    '--recursive',
-    './diff/current',
-    './diff/target'
-  ])
+  const result = await getExecOutput(
+    'diff',
+    ['--unified', '--recursive', './diff/current', './diff/target'],
+    {
+      ignoreReturnCode: true
+    }
+  )
 
   if (result.exitCode === 0) {
     output.set('changed', 'false')

@@ -39,12 +39,9 @@ const action = async ({ currentChartPath, currentValuesOptions, targetChartPath,
     output.info(targetArgs.join(' '));
     output.endGroup();
     await (0, exec_1.exec)('helm', targetArgs);
-    const result = await (0, exec_1.getExecOutput)('diff', [
-        '--unified',
-        '--recursive',
-        './diff/current',
-        './diff/target'
-    ]);
+    const result = await (0, exec_1.getExecOutput)('diff', ['--unified', '--recursive', './diff/current', './diff/target'], {
+        ignoreReturnCode: true
+    });
     if (result.exitCode === 0) {
         output.set('changed', 'false');
         output.info('No changes detected');
