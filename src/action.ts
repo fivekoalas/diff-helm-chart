@@ -49,6 +49,7 @@ export const action = async (
 
   const result = await getExecOutput('diff', [
     '--unified',
+    '--recursive',
     './diff/current',
     './diff/target'
   ])

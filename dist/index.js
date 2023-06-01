@@ -41,6 +41,7 @@ const action = async ({ currentChartPath, currentValuesOptions, targetChartPath,
     await (0, exec_1.exec)('helm', targetArgs);
     const result = await (0, exec_1.getExecOutput)('diff', [
         '--unified',
+        '--recursive',
         './diff/current',
         './diff/target'
     ]);
