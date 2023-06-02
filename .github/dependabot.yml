@@ -3,9 +3,23 @@ updates:
   - package-ecosystem: github-actions
     directory: /
     schedule:
-      interval: daily
+      interval: weekly
+      day: friday
+      time: '06:00'
+    commit-message:
+      include: scope
+      prefix: 'github-actions'
+    reviewers:
+      - krosf
 
   - package-ecosystem: npm
     directory: /
     schedule:
-      interval: daily
+      interval: weekly
+      day: friday
+      time: '06:00'
+    commit-message:
+      include: scope
+      prefix: 'npm'
+    reviewers:
+      - krosf
