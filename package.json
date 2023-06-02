@@ -1,6 +1,6 @@
 {
   "name": "@fivekoalas/diff-helm-chart",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "private": true,
   "description": "A Github action to diff helm chart based on git commit",
   "main": "lib/main.js",
