@@ -130,8 +130,8 @@ class Output {
         this.set('changed', 'true');
     }
 }
-Output.failed = core_1.setFailed;
 exports.Output = Output;
+Output.failed = core_1.setFailed;
 
 
 /***/ }),
