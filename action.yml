@@ -33,7 +33,7 @@ inputs:
     required: false
   targetBranchRegex:
     description: 'The regex to match the target branch on pull requests body'
-    default: 'target: ([a-zA-Z0-9-]+(/[a-zA-Z0-9-]+)?)'
+    default: 'target: (.*)'
     required: false
   asMarkdown:
     description: 'Whether to format the output as markdown'

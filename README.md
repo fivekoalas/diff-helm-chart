@@ -19,8 +19,12 @@ Add the following step to your workflow:
     targetChartPath: ./target/charts
     currentChartPath: ./current/charts
     valuesPath: ./values.yaml
-    targetValuesRepo: fivekoalas/diff-helm-chart
-    token: ${{ secrets.GITHUB_TOKEN }} # required for private repos
+    currentValuesRepo: fivekoalas/diff-helm-chart
+    targetValuesRepo: fivekoalas/diff-helm-chart # optional, defaults to currentValuesRepo
+    currentValuesBranch: main # optional, defaults to develop
+    token: ${{ secrets.GITHUB_TOKEN }} # required PAT for private repos, optional for public repos defaults to GITHUB_TOKEN
+    targetBranchRegex: 'release-.*' # optional, defaults to 'target: (.*)'
+    asMarkdown: true # optional, defaults to true
 
 - name: 'Add PR Comment'
   uses: mshick/add-pr-comment@v2
