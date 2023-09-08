@@ -21,7 +21,7 @@ jobs:
     if: github.actor != 'dependabot[bot]' # Dependabot commits are always followed by a dist folder commit
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Set Node.js 18.x
         uses: actions/setup-node@v3
