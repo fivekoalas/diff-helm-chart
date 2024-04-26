@@ -34,4 +34,11 @@ export class Output {
     this.set('diff', diff)
     this.set('changed', 'true')
   }
+
+  setTargetTemplate(targetTemplate: string): void {
+    if (this.input.asMarkdown) {
+      targetTemplate = `\`\`\`yaml\n${targetTemplate}\n\`\`\``
+    }
+    this.set('targetTemplate', targetTemplate)
+  }
 }

@@ -42,6 +42,12 @@ const action = async ({ currentChartPath, currentValuesOptions, targetChartPath,
         return;
     }
     output.setDiff(result.stdout);
+    const targetTemplate = await (0, exec_1.getExecOutput)('helm', ['template', targetChartPath, '--values', targetValues], {
+        ignoreReturnCode: true
+    });
+    if (targetTemplate.exitCode === 0) {
+        output.setTargetTemplate(targetTemplate.stdout);
+    }
 };
 exports.action = action;
 
@@ -128,6 +134,12 @@ class Output {
         }
         this.set('diff', diff);
         this.set('changed', 'true');
+    }
+    setTargetTemplate(targetTemplate) {
+        if (this.input.asMarkdown) {
+            targetTemplate = `\`\`\`yaml\n${targetTemplate}\n\`\`\``;
+        }
+        this.set('targetTemplate', targetTemplate);
     }
 }
 exports.Output = Output;

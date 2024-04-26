@@ -54,4 +54,16 @@ export const action = async (
   }
 
   output.setDiff(result.stdout)
+
+  const targetTemplate = await getExecOutput(
+    'helm',
+    ['template', targetChartPath, '--values', targetValues],
+    {
+      ignoreReturnCode: true
+    }
+  )
+
+  if (targetTemplate.exitCode === 0) {
+    output.setTargetTemplate(targetTemplate.stdout)
+  }
 }
