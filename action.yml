@@ -43,3 +43,11 @@ inputs:
 runs:
   using: 'node20'
   main: 'dist/index.js'
+
+outputs:
+  changed:
+    description: 'Whether the charts are different'
+  diff:
+    description: 'The diff between the charts'
+  targetTemplate:
+    description: 'The target chart rendered with the target values'
