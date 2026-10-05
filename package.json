@@ -2,13 +2,14 @@
   "name": "@fivekoalas/diff-helm-chart",
   "version": "1.0.0",
   "private": true,
+  "type": "module",
   "description": "A Github action to diff helm chart based on git commit",
   "main": "lib/main.js",
   "scripts": {
     "build": "tsc",
     "format": "prettier --write '**/*.ts'",
     "format-check": "prettier --check '**/*.ts'",
-    "lint": "eslint src/**/*.ts",
+    "lint": "eslint src",
     "package": "ncc build --source-map --license licenses.txt",
     "test": "vitest run",
     "all": "pnpm build && pnpm format && pnpm lint && pnpm package && pnpm test"
@@ -28,20 +29,19 @@
   "author": "Rodrigo Sanabria <rodrigo@sanabria.dev>",
   "license": "MIT",
   "dependencies": {
-    "@actions/core": "1.10.1",
-    "@actions/exec": "1.1.1",
-    "@actions/github": "6.0.0"
+    "@actions/core": "3.0.1",
+    "@actions/exec": "3.0.0",
+    "@actions/github": "9.1.1"
   },
   "devDependencies": {
     "@types/node": "24.19.1",
-    "@typescript-eslint/parser": "7.0.2",
-    "@vercel/ncc": "0.38.1",
+    "@vercel/ncc": "0.45.0",
     "@vitest/eslint-plugin": "1.6.27",
-    "eslint": "8.57.1",
-    "eslint-plugin-github": "4.10.1",
-    "js-yaml": "4.1.0",
-    "prettier": "3.2.5",
-    "typescript": "5.3.3",
+    "eslint": "10.12.0",
+    "eslint-plugin-github": "6.1.2",
+    "prettier": "3.9.9",
+    "typescript": "6.0.3",
+    "typescript-eslint": "8.71.0",
     "vitest": "5.0.3"
   },
   "packageManager": "pnpm@12.9.1",
