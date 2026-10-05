@@ -65,6 +65,9 @@ typings/
 # Yarn Integrity file
 .yarn-integrity
 
+# pnpm
+.pnpm-store
+
 # dotenv environment variables file
 .env
 .env.test
