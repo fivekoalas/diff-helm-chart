@@ -6,7 +6,7 @@ import {
   endGroup,
   info
 } from '@actions/core'
-import {Input} from './input'
+import {Input} from './input.js'
 
 export class Output {
   input: Input

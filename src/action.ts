@@ -1,6 +1,6 @@
-import type {Input} from './input'
-import type {Output} from './output'
-import {downloadRepoFile} from './utils/download-repo-file'
+import type {Input} from './input.js'
+import type {Output} from './output.js'
+import {downloadRepoFile} from './utils/download-repo-file.js'
 import {getOctokit} from '@actions/github'
 import {exec, getExecOutput} from '@actions/exec'
 
