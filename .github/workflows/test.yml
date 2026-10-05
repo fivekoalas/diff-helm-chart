@@ -13,13 +13,15 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - uses: pnpm/action-setup@v6
+
       - name: Set Node.js 20.x
         uses: actions/setup-node@v4
         with:
           node-version: '20.11'
-          cache: 'yarn'
+          cache: 'pnpm'
 
       - name: Install dependencies
-        run: yarn install --frozen-lockfile
+        run: pnpm install --frozen-lockfile
       - name: Build
-        run: yarn all
+        run: pnpm all
