@@ -117,17 +117,19 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.Output = void 0;
 const core_1 = __nccwpck_require__(9093);
 class Output {
+    input;
     constructor(input) {
-        this.debug = core_1.debug;
-        this.endGroup = core_1.endGroup;
-        this.startGroup = core_1.startGroup;
-        this.set = core_1.setOutput;
-        this.info = core_1.info;
         this.input = input;
     }
     static async build(input) {
         return new Output(input);
     }
+    debug = core_1.debug;
+    endGroup = core_1.endGroup;
+    startGroup = core_1.startGroup;
+    static failed = core_1.setFailed;
+    set = core_1.setOutput;
+    info = core_1.info;
     setDiff(diff) {
         if (this.input.asMarkdown) {
             diff = `\`\`\`diff\n${diff}\n\`\`\``;
@@ -143,7 +145,6 @@ class Output {
     }
 }
 exports.Output = Output;
-Output.failed = core_1.setFailed;
 
 
 /***/ }),
