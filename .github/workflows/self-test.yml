@@ -1,0 +1,71 @@
+name: 'self-test'
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+      - 'releases/*'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  changed:
+    name: Detects changes between charts
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: azure/setup-helm@v5
+
+      - name: Diff Helm Chart
+        uses: ./
+        id: diff
+        with:
+          currentChartPath: ./__tests__/fixtures/charts/current
+          targetChartPath: ./__tests__/fixtures/charts/target
+          valuesPath: __tests__/fixtures/values.yaml
+          currentValuesRepo: ${{ github.repository }}
+          currentValuesBranch: ${{ github.sha }}
+          targetValuesBranch: ${{ github.sha }}
+
+      - name: Assert outputs
+        env:
+          CHANGED: ${{ steps.diff.outputs.changed }}
+          DIFF: ${{ steps.diff.outputs.diff }}
+          TARGET_TEMPLATE: ${{ steps.diff.outputs.targetTemplate }}
+        run: |
+          set -euo pipefail
+          test "$CHANGED" = "true" || { echo "expected changed=true, got '$CHANGED'"; exit 1; }
+          grep -q '^+  replicas: "2"' <<< "$DIFF" || { echo "diff is missing the added line:"; echo "$DIFF"; exit 1; }
+          grep -q '^```diff' <<< "$DIFF" || { echo "diff is not formatted as markdown"; exit 1; }
+          grep -q 'replicas: "2"' <<< "$TARGET_TEMPLATE" || { echo "targetTemplate is missing the target render:"; echo "$TARGET_TEMPLATE"; exit 1; }
+
+  unchanged:
+    name: Detects identical charts
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: azure/setup-helm@v5
+
+      - name: Diff Helm Chart
+        uses: ./
+        id: diff
+        with:
+          currentChartPath: ./__tests__/fixtures/charts/current
+          targetChartPath: ./__tests__/fixtures/charts/current
+          valuesPath: __tests__/fixtures/values.yaml
+          currentValuesRepo: ${{ github.repository }}
+          currentValuesBranch: ${{ github.sha }}
+          targetValuesBranch: ${{ github.sha }}
+
+      - name: Assert outputs
+        env:
+          CHANGED: ${{ steps.diff.outputs.changed }}
+          DIFF: ${{ steps.diff.outputs.diff }}
+        run: |
+          set -euo pipefail
+          test "$CHANGED" = "false" || { echo "expected changed=false, got '$CHANGED'"; exit 1; }
+          test -z "$DIFF" || { echo "expected empty diff, got:"; echo "$DIFF"; exit 1; }

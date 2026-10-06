@@ -14,7 +14,7 @@ export class Input {
       getInput('targetValuesRepo') || getInput('currentValuesRepo')
     const [owner, repo] = ownerWithRepo.split('/')
     const path = getInput('valuesPath')
-    let ref = 'develop'
+    let ref = getInput('targetValuesBranch') || 'develop'
 
     if (context.eventName === 'pull_request') {
       const regex = new RegExp(getInput('targetBranchRegex'))
