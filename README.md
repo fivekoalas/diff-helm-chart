@@ -13,7 +13,7 @@ Add the following step to your workflow:
 
 ```yaml
 - name: Diff Helm Chart
-  uses: fivekoalas/diff-helm-chart@v1
+  uses: fivekoalas/diff-helm-chart@v3
   id: diff
   with:
     targetChartPath: ./target/charts
@@ -33,6 +33,18 @@ Add the following step to your workflow:
   with:
     message: ${{ steps.diff.outputs.diff }}
 ```
+
+## Outputs
+
+| Name             | Description                                      |
+| ---------------- | ------------------------------------------------ |
+| `changed`        | Whether the charts are different                 |
+| `diff`           | The diff between the charts                      |
+| `targetTemplate` | The target chart rendered with the target values |
+
+## Upgrading to v3
+
+v3 runs on the `node24` runtime. Self-hosted runners must be on a version that supports Node 24 actions. It also adds the optional `targetValuesBranch` input (defaults to `develop`, the previously hardcoded value); all other inputs and outputs are unchanged from v2.
 
 ## License Summary
 
