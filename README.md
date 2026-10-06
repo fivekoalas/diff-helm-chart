@@ -22,6 +22,7 @@ Add the following step to your workflow:
     currentValuesRepo: fivekoalas/diff-helm-chart
     targetValuesRepo: fivekoalas/diff-helm-chart # optional, defaults to currentValuesRepo
     currentValuesBranch: main # optional, defaults to develop
+    targetValuesBranch: main # optional, defaults to develop, overridden by targetBranchRegex on pull requests
     token: ${{ secrets.GITHUB_TOKEN }} # required PAT for private repos, optional for public repos defaults to GITHUB_TOKEN
     targetBranchRegex: 'release-.*' # optional, defaults to 'target: (.*)'
     asMarkdown: true # optional, defaults to true

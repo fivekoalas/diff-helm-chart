@@ -27,6 +27,10 @@ inputs:
     description: 'The branch containing the current values'
     required: false
     default: 'develop'
+  targetValuesBranch:
+    description: 'The branch containing the target values, used when the pull request body does not match targetBranchRegex'
+    required: false
+    default: 'develop'
   token:
     description: 'The Github token'
     default: '${{ github.token }}'

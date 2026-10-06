@@ -37374,7 +37374,7 @@ class Input {
         const ownerWithRepo = getInput('targetValuesRepo') || getInput('currentValuesRepo');
         const [owner, repo] = ownerWithRepo.split('/');
         const path = getInput('valuesPath');
-        let ref = 'develop';
+        let ref = getInput('targetValuesBranch') || 'develop';
         if (github_context.eventName === 'pull_request') {
             const regex = new RegExp(getInput('targetBranchRegex'));
             const payload = github_context.payload.pull_request;
